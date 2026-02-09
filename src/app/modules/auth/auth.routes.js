@@ -17,7 +17,7 @@ router.post("/login/phone", AuthControllers.loginWithPhone);
 router.post("/refresh-token", AuthControllers.refreshToken);
 
 // Protected routes
-router.get("/me",checkAuth,  AuthControllers.getMe);
+router.get("/me",checkAuth("user","admin"),  AuthControllers.getMe);
 router.post("/logout", AuthControllers.logout);
 
 export const authRoutes = router;

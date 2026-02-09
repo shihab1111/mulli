@@ -1,12 +1,14 @@
 import { envVars } from "../config/env.js";
 import { generateToken, verifyToken } from "./jwt.js";
-import User from "../modules/User/user.model.js";
 
 export const createUserTokens = (user) => {
-    const jwtPayload = {
-      
-        email: user.email,
-    };
+  const jwtPayload = {
+  email: user.email || "",
+  userId: user._id,
+  role: user.role,
+  name: user.name || "",
+  phone: user.phone || "",
+};
 
     const accessToken = generateToken(
         jwtPayload,

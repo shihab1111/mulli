@@ -4,16 +4,14 @@ import { userControllers } from "./user.controller.js";
 
 const router = Router();
 
-// Create User
-router.post("/withPhone", fileUploader.upload.array("images", 6), userControllers.createUser);
-router.post("/withEmail", fileUploader.upload.array("images", 6), userControllers.createUser);
+// Email Signup Flow
+router.post("/signup/email", userControllers.sendEmailOtp);
+router.post("/signup/email/verify", userControllers.verifyEmailOtp);
 
-// Email OTP
-router.post("/otp/email", userControllers.sendEmailOtp);
-router.post("/otp/email/verify", userControllers.verifyEmailOtp);
+// Phone Signup Flow  
+router.post("/signup/phone", userControllers.sendPhoneOtp);
+router.post("/signup/phone/verify", userControllers.verifyPhoneOtp);
 
-// Phone OTP
-router.post("/otp/phone", userControllers.sendPhoneOtp);
-router.post("/otp/phone/verify", userControllers.verifyPhoneOtp);
-
+// Complete User Profile
+router.patch("/profile/complete", fileUploader.upload.array("image", 6), userControllers.createUser);
 export const userRoutes = router;
