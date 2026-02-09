@@ -6,6 +6,7 @@ import { authRoutes } from '../modules/auth/auth.routes.js';
 import { giftroutes } from '../modules/Gift/gift.route.js';
 import { discoveryRouter } from '../modules/Discovery/discovery.route.js';
 import { chatRoutes } from '../modules/chat/chat.route.js';
+import clubHouseRoutes from '../modules/Clubhouse/clubhouse.route.js';
 // import { notificationRoutes } from '../modules/notification/notification.router.js';
 
 // import { AuthRoutes } '../modules/auth/auth.routes.js';
@@ -40,6 +41,10 @@ const moduleRoutes = [
     {
         path: '/chat',
         route: chatRoutes
+    },
+      {
+        path: '/clubhouse',
+        route: clubHouseRoutes
     },
     // {
     //     path: '/notification',
