@@ -8,13 +8,20 @@ import { redisClient } from "./app/config/redis.config.js";
 import { globalErrorHandler } from "./app/middlewars/globalErrorHandler.js";
 import notFound from "./app/middlewars/notFound.js";
 import { envVars } from "./app/config/env.js";
+import { stripeWebhookController as stripeWebhook } from "./app/modules/subscription/subscription.controller.js";
 
 const app = express();
 
 // Core middlewares
+app.post(
+    "/webhook",
+    express.raw({ type: "application/json" }),
+    stripeWebhook
+);
 app.use(express.json());
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
+
 app.use(
     cors({
         origin: ["http://localhost:3000"],

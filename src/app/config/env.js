@@ -49,7 +49,11 @@ const loadEnvVariables = () => {
       port: Number(process.env.REDIS_PORT),
       username: process.env.REDIS_USERNAME,
       password: process.env.REDIS_PASSWORD,
-    }
+    },
+    stripe: {
+      secretKey: process.env.STRIPE_SECRET_KEY,
+      webhookSecret: process.env.WEBHOOK_SECRET,
+    },
   };
 };
 
