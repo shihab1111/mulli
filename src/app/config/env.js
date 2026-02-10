@@ -14,6 +14,11 @@ const loadEnvVariables = () => {
     "TWILIO_PHONE_NUMBER",
     "REDIS_HOST",
     "REDIS_PORT",
+    "SMTP_USER",
+    "SMTP_PASS",
+    "SMTP_HOST",
+    "SMTP_HOST_PORT"
+
   ];
 
   requiredEnvVariables.forEach((key) => {
@@ -31,8 +36,10 @@ const loadEnvVariables = () => {
     JWT_REFRESH_SECRET: process.env.JWT_REFRESH_SECRET,
     JWT_REFRESH_EXPIRES: process.env.JWT_REFRESH_EXPIRES,
     SESSION_SECRET: process.env.SESSION_SECRET,
-    SMTP_USER: process.env.SMTP_USER || "montasirr36@gmail.com",
-    SMTP_PASS: process.env.SMTP_PASS || "qhcjwmakswhncitr",
+    SMTP_USER : process.env.SMTP_USER,
+    SMTP_PASS: process.env.SMTP_PASS,
+    SMTP_HOST: process.env.SMTP_HOST,
+    SMTP_HOST_PORT: Number(process.env.SMTP_HOST_PORT),
 
     cloudinary: {
       cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
@@ -54,6 +61,7 @@ const loadEnvVariables = () => {
       secretKey: process.env.STRIPE_SECRET_KEY,
       webhookSecret: process.env.WEBHOOK_SECRET,
     },
+
   };
 };
 
