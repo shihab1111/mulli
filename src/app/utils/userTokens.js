@@ -6,7 +6,7 @@ export const createUserTokens = (user) => {
   email: user.email || "",
   userId: user._id,
   role: user.role,
-  name: user.name || "",
+  name: user.firstName || "",
   phone: user.phone || "",
 };
 

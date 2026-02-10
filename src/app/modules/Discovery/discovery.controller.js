@@ -6,7 +6,6 @@ import { discoveryServices } from "./discovery.service.js";
 // /discovery/batch?filtered=true
 const getDiscoveryBatch = catchAsync(async (req, res) => {
   const result = await discoveryServices.getDiscoveryBatchService(req.user, req.query);
-
   sendResponse(res, {
     success: true,
     statusCode: 200,

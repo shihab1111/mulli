@@ -1,11 +1,11 @@
 import { fileUploader } from "../../helpers/fileUpload.js";
 import { sendResponse } from "../../utils/sendResponse.js";
 import * as userService from "./user.service.js";
+import User from "./user.model.js";
 
 
 const createUser = async (req, res) => {
   try {
-    // 1. Parse the stringified 'data' field back into a JS Object
     let bodyData = {};
     if (req.body.data) {
       bodyData = JSON.parse(req.body.data);
@@ -13,20 +13,15 @@ const createUser = async (req, res) => {
       bodyData = req.body;
     }
 
-    // 2. Handle Cloudinary uploads
     if (req.files && req.files.length > 0) {
       const uploadResults = await Promise.all(
         req.files.map((f) => fileUploader.uploadToCloudinary(f))
       );
       const urls = uploadResults.map((r) => r?.secure_url).filter(Boolean);
-      
-      // Add the image URLs to our parsed object
       bodyData.images = urls;
-      // Set the first image as the main profile image
       bodyData.profileImage = urls[0]; 
     }
 
-    // 3. Save to DB
     const userData = await userService.createUser(bodyData);
 
     sendResponse(res, {
@@ -54,8 +49,15 @@ const sendEmailOtp = async (req, res) => {
         message: "Email required",
       });
     }
-
-    const otp = await userService.createEmailOtp(email);
+   const checkUser=await User.findOne({email});
+   if(checkUser && checkUser.isProfileComplete && checkUser.isEmailVerified){
+    return sendResponse(res, {
+      statusCode: 400,
+      success: false,
+      message: "Account already exists with this email. Please login.",
+    });
+   }
+   const otp = await userService.createSignUpEmailOtp(email);
 
     sendResponse(res, {
       statusCode: 200,

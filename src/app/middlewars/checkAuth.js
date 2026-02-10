@@ -49,11 +49,11 @@ export const checkAuth = (...allowedRoles) => {
 
             // Attach user info to request
             req.user = {
-                userId: user._id,
+                id: user._id,
                 email: user.email || "",
                 phone: user.phone || "",
                 role: user.role,
-                name: user.name || "",
+                name: user.firstName || "",
             };
 
             next();

@@ -5,8 +5,8 @@ import Match from "./match.model.js";
 // Get all matches
 export const getMatches = async (req, res) => {
   try {
-    const userId = "69877082162a52e4a1c7bc03";
-
+    const userId = req.user.id;
+  console.log("Fetching matches for user:", userId);
     const matches = await Match.find({
       users: userId,
     })

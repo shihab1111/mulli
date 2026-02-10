@@ -35,9 +35,29 @@ export const createUser = async (data) => {
   return userData;
 };
 
+export const createSignUpEmailOtp = async (email) => {
+  const otp = generateOtp();
+  const user = await User.findOne({ email });
+
+
+
+  await sendOtpEmail({ to: email, otp });
+  await redisClient.setex(`otp:email:${email}`, OTP_EXPIRE, otp);
+  return otp;
+};
 // GENERATE & SEND EMAIL OTP
 export const createEmailOtp = async (email) => {
   const otp = generateOtp();
+  const user = await User.findOne({ email });
+
+if (
+  !user ||
+  !user.isEmailVerified ||
+  !user.isProfileComplete
+) {
+  throw new Error("Create Your Account First");
+}
+
   await sendOtpEmail({ to: email, otp });
   await redisClient.setex(`otp:email:${email}`, OTP_EXPIRE, otp);
   return otp;

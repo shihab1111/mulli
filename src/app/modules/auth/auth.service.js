@@ -70,14 +70,17 @@ const loginWithEmail = async (email, otp) => {
     // Generate tokens
     const tokens = createUserTokens(user);
 
-    // Remove sensitive data
-    const { password, ...userWithoutPassword } = user.toObject();
+ 
 
     return {
       success: true,
       message: "Login successful",
       data: {
-        user: userWithoutPassword,
+        user: {
+          id: user._id,
+          name: user.firstName,
+          
+        },
         accessToken: tokens.accessToken,
         refreshToken: tokens.refreshToken,
       },

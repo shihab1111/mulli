@@ -114,7 +114,7 @@ const fetchUsersByCursor = async (dbQuery, cursor, limit) => {
 
 
 const getDiscoveryBatchService = async (authUser, query) => {
-  const userId ="69881c8f04c3ff643148c27c" ;
+  const userId = authUser.id;
   if (!userId) throw new AppError(401, "Unauthorized");
 
   const limit = Math.min(Math.max(parseInt(query.limit || "20", 10), 1), 50);
